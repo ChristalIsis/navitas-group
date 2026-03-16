@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="lt">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navitas Group</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #f8fafb 0%, #f0f4f8 100%);
+    }
+
+    .app-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #ffffff 0%, #f3f7fb 50%, #e8f1f8 100%);
+    }
+
+    .energy-section {
+      background: rgb(245, 245, 245);
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px 24px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-card-content {
+      flex-grow: 1;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-primary {
+      background: white;
+      color: #aa8900;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 1px solid #aa8900;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(170, 137, 0, 0.15);
+      background: rgba(170, 137, 0, 0.05);
+    }
+
+    .btn-header {
+      background: #aa8900;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 1px solid #aa8900;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .btn-header:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(170, 137, 0, 0.25);
+      background: #8a6d00;
+      border-color: #8a6d00;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #aa8900;
+      border: 1px solid #aa8900;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(170, 137, 0, 0.15);
+      background: rgba(170, 137, 0, 0.05);
+    }
+
+    .news-badge {
+      display: inline-block;
+      background: rgba(170, 137, 0, 0.1);
+      color: #aa8900;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      color: #aa8900;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e0e7f1;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #aa8900;
+      box-shadow: 0 0 0 3px rgba(170, 137, 0, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .partner-logo {
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .image-hover {
+      position: relative;
+    }
+
+    .image-hover img {
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s ease;
+    }
+
+    .service-card:hover .image-hover img {
+      transform: scale(1.08);
+      filter: brightness(1) contrast(1);
+      opacity: 1 !important;
+    }
+
+    .nav-link {
+      color: #374151;
+      font-weight: 500;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-link:hover {
+      color: #aa8900;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #aa8900;
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-link.active {
+      color: #aa8900;
+    }
+
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    .accordion-button {
+      background: none;
+      border: none;
+      color: #aa8900;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .accordion-button:hover {
+      opacity: 0.8;
+    }
+
+    .accordion-icon {
+      display: inline-block;
+      transition: transform 0.3s ease;
+      width: 20px;
+      height: 20px;
+    }
+
+    .accordion-icon.open {
+      transform: rotate(180deg);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .accordion-content.open {
+      max-height: 500px;
+    }
+
+    .accordion-content-inner {
+      padding-top: 12px;
+      border-top: 1px solid #e0e7f1;
+      margin-top: 12px;
+    }
+
+    .privacy-notice {
+      background: rgba(170, 137, 0, 0.08);
+      border: 1px solid rgba(170, 137, 0, 0.2);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+    }
+
+    .privacy-notice p {
+      font-size: 13px;
+      color: #666;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      padding: 0;
+      transition: all 0.3s ease;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+      accent-color: #aa8900;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .checkbox-group label {
+      font-size: 13px;
+      color: #666;
+      cursor: pointer;
+      margin: 0;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .checkbox-group .accordion-button {
+      text-decoration: none;
+      display: inline;
+      padding: 0;
+      font-weight: 500;
+      font-size: 13px;
+      color: #aa8900;
+    }
+
+    .checkbox-group .accordion-button:hover {
+      opacity: 0.7;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="app-wrapper">
+   <!-- Header -->
+   <header class="hero-gradient border-b border-gray-200">
+    <div class="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
+     <div class="flex items-center gap-3"><img src="https://navitas.lt/wp-content/uploads/2017/04/LOGO-NIDULUS.png" alt="Navitas Group Logo" loading="lazy" class="h-16 object-contain" onerror="console.error('Logo failed to load:', this.src); this.style.display='none';">
+     </div>
+     <nav class="flex gap-8">
+      <a href="#" class="nav-link active">Pradinis</a> <a href="#services" class="nav-link">Paslaugos</a> <a href="#contact" class="nav-link">Kontaktai</a> <a href="#news" class="nav-link">Naujienos</a>
+     </nav>
+    </div>
+   </header><!-- Hero Section -->
+   <section class="hero-gradient py-16 md:py-24">
+    <div class="max-w-6xl mx-auto px-6">
+     <div class="fade-in">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">Patikimi sprendimai<br>
+        jūsų biznesiui</h1>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl">Profesionali konsultacija nekilnojamojo turto, statybos ir finansavimo srityse. Padedame jums pasiekti savo tikslus.</p>
+      <div class="flex gap-4">
+       <button class="btn-header">Sužinoti daugiau</button> <button class="btn-secondary">Kontaktuoti</button>
+      </div>
+     </div>
+    </div>
+   </section><!-- Services Section -->
+   <section id="services" class="py-20">
+    <div class="max-w-6xl mx-auto px-6">
+     <h2 class="text-4xl font-bold text-gray-900 mb-4 text-center" id="services-title">Teikiamos paslaugos</h2>
+     <p class="text-gray-600 mb-12 text-lg text-center">Visa, ko jums reikia, vienoje vietoje</p>
+     <div class="grid md:grid-cols-3 gap-8">
+      <!-- Service 1 -->
+      <div class="service-card overflow-hidden">
+       <div class="mb-4 -mx-6 -mt-8 mb-6 h-48 bg-gradient-to-br from-gray-200 to-gray-300 relative overflow-hidden image-hover">
+        <img src="https://navitas.lt/wp-content/uploads/2015/10/nekilnojamas-turtas.jpg" alt="Nekilnojamasis turtas" loading="lazy" class="w-full h-full object-cover transition-all duration-300 opacity-75" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #d4a574 0%, #8a6d00 100%)'; this.alt='Image unavailable';">
+       </div>
+       <div class="service-card-content">
+        <div class="flex items-center gap-3 mb-4">
+         <i data-lucide="building-2" style="width: 32px; height: 32px; color: #aa8900; opacity: 0.75; stroke-width: 1.5;"></i>
+         <h3 class="text-2xl font-normal text-gray-900">Nekilnojamasis turtas</h3>
+        </div>
+        <p class="text-gray-600 mb-6 leading-relaxed">Profesionali pagalba norintiems pirkti, parduoti ar išnuomoti nekilnojamąjį turtą. Nuolatinis naudojimas ir bendra patirtis garantuoja jūsų sėkmę.</p>
+       </div><button class="btn-primary">Sužinoti daugiau</button>
+      </div><!-- Service 2 -->
+      <div class="service-card overflow-hidden">
+       <div class="mb-4 -mx-6 -mt-8 mb-6 h-48 bg-gradient-to-br from-gray-200 to-gray-300 relative overflow-hidden image-hover">
+        <img src="https://navitas.lt/wp-content/uploads/2015/10/namu-pridavimas-2.jpg" alt="Statinių pridavimas" loading="lazy" class="w-full h-full object-cover transition-all duration-300 opacity-75" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #d4a574 0%, #8a6d00 100%)'; this.alt='Image unavailable';">
+       </div>
+       <div class="service-card-content">
+        <div class="flex items-center gap-3 mb-4">
+         <i data-lucide="hard-hat" style="width: 32px; height: 32px; color: #aa8900; opacity: 0.75; stroke-width: 1.5;"></i>
+         <h3 class="text-2xl font-normal text-gray-900">Statinių pridavimas</h3>
+        </div>
+        <p class="text-gray-600 mb-6 leading-relaxed">Pasibaigus pastato ar namo statybai, jis turi būti užregistruojamas, o savininkui suteikiami nuosavybės dokumentai.</p>
+       </div><button class="btn-primary">Sužinoti daugiau</button>
+      </div><!-- Service 3 -->
+      <div class="service-card overflow-hidden">
+       <div class="mb-4 -mx-6 -mt-8 mb-6 h-48 bg-gradient-to-br from-gray-200 to-gray-300 relative overflow-hidden image-hover">
+        <img src="https://navitas.lt/wp-content/uploads/2015/10/paskolos.jpg" alt="Paskolos su užstatu" loading="lazy" class="w-full h-full object-cover transition-all duration-300 opacity-75" onerror="console.error('Image failed to load:', this.src); this.style.background='linear-gradient(135deg, #d4a574 0%, #8a6d00 100%)'; this.alt='Image unavailable';">
+       </div>
+       <div class="service-card-content">
+        <div class="flex items-center gap-3 mb-4">
+         <i data-lucide="banknote" style="width: 32px; height: 32px; color: #aa8900; opacity: 0.75; stroke-width: 1.5;"></i>
+         <h3 class="text-2xl font-normal text-gray-900">Paskolos su užstatu</h3>
+        </div>
+        <p class="text-gray-600 mb-6 leading-relaxed">Konsultacijos esamiems ir būsimiems klientams kredito gavimo klausimais. Padedame rasti geriausią sprendimą.</p>
+       </div><button class="btn-primary">Sužinoti daugiau</button>
+      </div>
+     </div>
+    </div>
+   </section><!-- Energy Focus Section -->
+   <section class="energy-section py-20">
+    <div class="max-w-6xl mx-auto px-6">
+     <div class="flex items-start gap-8">
+      <div class="flex-shrink-0">
+       <i data-lucide="zap" style="width: 40px; height: 40px; color: #aa8900; opacity: 0.75; stroke-width: 1.5;"></i>
+      </div>
+      <div>
+       <h2 class="text-3xl font-bold text-gray-900 mb-4">Energijos ateitis</h2>
+       <p class="text-gray-700 text-lg leading-relaxed">Navitas Group yra įsipareigojusi darnaus ir atsakingo verslo principams. Investuojame į žaliąsias technologijas ir inovatyvius sprendimus, kurie prisideda prie geresnės ateities mūsų visų.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- News/Project Section -->
+   <section id="news" class="py-20">
+    <div class="max-w-6xl mx-auto px-6">
+     <h2 class="text-4xl font-bold text-gray-900 mb-4 text-center">Naujausi projektai</h2>
+     <p class="text-gray-600 mb-12 text-lg text-center">Mūsų paskutiniai pasiekimai ir investicijos</p>
+     <div class="grid md:grid-cols-1 gap-8">
+      <div class="service-card">
+       <div class="flex items-start justify-between mb-6">
+        <div class="news-badge" style="background-color: rgb(245, 245, 245); color: #aa8900;">
+         2025 m. gruodžio 23 d.
+        </div>
+       </div>
+       <h3 class="text-2xl font-normal text-gray-900 mb-4">Elektromobilių įkrovimo prieigos įrengimas</h3>
+       <p class="text-gray-700 mb-4 leading-relaxed">„Juridinių asmenų privačių elektromobilių įkrovimo prieigų įrengimas darbovietėse" – investicija į šiuolaikinę ir atsakingą infrastruktūrą.</p>
+       <p class="text-gray-600 mb-6 leading-relaxed text-sm">Projektas įgyvendinamas pagal ekonomikos gaivinimo planą „Naujos kartos Lietuva", finansuojamą Europos Sąjungos „NextGenerationEU" lėšomis.</p>
+       <div class="mb-6"><button class="accordion-button" onclick="toggleAccordion(this)"> <span class="accordion-icon"><i data-lucide="chevron-down" style="width: 20px; height: 20px;"></i></span> Daugiau informacijos </button>
+        <div class="accordion-content">
+         <div class="accordion-content-inner">
+          <p class="text-gray-700 leading-relaxed">Galimybė gauti 997.15 Eur paramą iš jungtinio projekto „Privačių elektromobilių įkrovimo prieigų įrengimas" pateikus paraišką Lietuvos energetikos agentūrai pagal paskelbtą kvietimą „Juridinių asmenų privačių elektromobilių įkrovimo prieigų įrengimas darbovietėse" paskatino Navitas group, UAB suplanuoti įsirengti 1 elektromobilio įkrovimo prieigą.</p>
+          <p class="text-gray-700 leading-relaxed mt-4">Jungtinio projekto projektas įgyvendinamas pagal ekonomikos gaivinimo ir atsparumo didinimo planą „Naujos kartos Lietuva", finansuojamą Europos Sąjungos ekonomikos gaivinimo ir atsparumo didinimo priemonės „NextGenerationEU" lėšomis.</p>
+         </div>
+        </div>
+       </div>
+       <div class="flex flex-wrap gap-2 mt-8">
+        <span class="news-badge" style="background-color: rgb(245, 245, 245); color: #aa8900;">#Žaliosios technologijos</span> <span class="news-badge" style="background-color: rgb(245, 245, 245); color: #aa8900;">#EU finansavimas</span> <span class="news-badge" style="background-color: rgb(245, 245, 245); color: #aa8900;">#Darnūs sprendimai</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Partners Section -->
+   <section class="bg-gray-50 py-16">
+    <div class="max-w-6xl mx-auto px-6">
+     <h3 class="text-4xl font-bold text-gray-900 mb-4 text-center">Mūsų partneriai</h3>
+     <p class="text-gray-600 mb-12 text-lg text-center">Mūsų patikimi partneriai</p>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="partner-logo"></div>
+      <div class="partner-logo"></div>
+      <div class="partner-logo"></div>
+     </div>
+    </div>
+   </section><!-- Contact Form Section -->
+   <section id="contact" class="py-20">
+    <div class="max-w-4xl mx-auto px-6">
+     <h2 class="text-4xl font-bold text-gray-900 mb-4 text-center" id="contact-title">Kilo klausimų?</h2>
+     <p class="text-gray-600 mb-12 text-lg text-center">Susisiekite su mūsų komanda ir gautie daugiau informacijos</p>
+     <form class="bg-white rounded-16px p-8 md:p-12 shadow-md" onsubmit="handleFormSubmit(event)">
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+       <div class="form-group">
+        <label for="name">Vardas *</label> <input id="name" type="text" placeholder="Įveskite vardą" required>
+       </div>
+       <div class="form-group">
+        <label for="email">El. paštas *</label> <input id="email" type="email" placeholder="Įveskite el. paštą" required>
+       </div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+       <div class="form-group">
+        <label for="address">Adresas *</label> <input id="address" type="text" placeholder="Gatvė, miestas" required>
+       </div>
+       <div class="form-group">
+        <label for="phone">Tel. numeris *</label> <input id="phone" type="tel" placeholder="Tel. numeris" required>
+       </div>
+      </div>
+      <div class="form-group">
+       <label for="category">Kategorija *</label> <select id="category" required style="width: 100%; padding: 12px 16px; border: 2px solid #e0e7f1; border-radius: 8px; font-family: inherit; font-size: 14px; background-color: white; cursor: pointer;"> <option value="">Pasirinkite kategoriją</option> <option value="nekilnojamas-turtas">Nekilnojamasis turtas</option> <option value="statybos-paslaugos">Statybos paslaugos</option> <option value="finansavimas">Finansavimas</option> <option value="kita">Kita</option> </select>
+      </div>
+      <div class="form-group">
+       <label for="contact-method">Susisiekite su manimi *</label> <select id="contact-method" required style="width: 100%; padding: 12px 16px; border: 2px solid #e0e7f1; border-radius: 8px; font-family: inherit; font-size: 14px; background-color: white; cursor: pointer;"> <option value="">Pasirinkite būdą</option> <option value="email">El. paštas</option> <option value="phone">Telefonas</option> <option value="both">Abiem</option> </select>
+      </div>
+      <div class="form-group">
+       <label for="message">Užklausos tekstas *</label> <textarea id="message" placeholder="Parašykite savo žinutę..." required></textarea>
+      </div>
+      <div class="checkbox-group"><input type="checkbox" id="privacy-consent" required> <label for="privacy-consent">Susipažinau ir sutinku su <button type="button" class="accordion-button" onclick="togglePrivacyAccordion(this)" style="display: inline; padding: 0; color: #aa8900; font-weight: 500; font-size: 14px; background: none; border: none; cursor: pointer;"> asmens duomenų tvarkymo taisyklėmis </button></label>
+      </div>
+      <div class="accordion-content" id="privacy-accordion">
+       <div class="accordion-content-inner">
+        <p class="text-gray-700 leading-relaxed">Užpildydami ir išsiųsdami šią formą, jūs sutikat su mūsų asmens duomenų tvarkymo taisyklėmis ir duodate sutikimą savo duomenims apdoroti.</p>
+       </div>
+      </div><button type="submit" class="btn-primary w-full md:w-auto">Siųsti žinutę</button>
+     </form>
+    </div>
+   </section><!-- Footer -->
+   <footer class="bg-gray-900 text-gray-300 py-12">
+    <div class="max-w-6xl mx-auto px-6">
+     <div class="grid md:grid-cols-4 gap-8 mb-8">
+      <!-- Brand -->
+      <div><img src="https://navitas.lt/wp-content/uploads/2017/04/LOGO-NIDULUS.png" alt="Navitas Group Logo" loading="lazy" class="h-32 object-contain mb-4" onerror="console.error('Logo failed to load:', this.src); this.style.display='none';">
+      </div><!-- Navigation -->
+      <div>
+       <h4 class="font-normal text-white mb-4">Navigacija</h4>
+       <ul class="space-y-2">
+        <li><a href="#" class="text-gray-400 hover:text-white transition text-sm">Pradinis</a></li>
+        <li><a href="#services" class="text-gray-400 hover:text-white transition text-sm">Paslaugos</a></li>
+        <li><a href="#news" class="text-gray-400 hover:text-white transition text-sm">Naujienos</a></li>
+        <li><a href="#contact" class="text-gray-400 hover:text-white transition text-sm">Kontaktai</a></li>
+       </ul>
+      </div><!-- Contact -->
+      <div>
+       <h4 class="font-normal text-white mb-4">Kontaktai</h4>
+       <ul class="space-y-3 text-sm">
+        <li class="flex items-center gap-2"><i data-lucide="phone" style="width: 16px; height: 16px;"></i><a href="tel:+37065762107" class="text-gray-400 hover:text-white transition">+370 657 62107</a></li>
+        <li class="flex items-center gap-2"><i data-lucide="phone" style="width: 16px; height: 16px;"></i><a href="tel:+37069875222" class="text-gray-400 hover:text-white transition">+370 698 75222</a></li>
+        <li class="flex items-center gap-2"><i data-lucide="mail" style="width: 16px; height: 16px;"></i><a href="mailto:info@navitas.lt" class="text-gray-400 hover:text-white transition">info@navitas.lt</a></li>
+        <li class="text-gray-400">Jonavos g. 204A, Kaunas</li>
+        <li class="text-gray-400">J. Basanavičiaus g. 2, Jonava</li>
+       </ul>
+      </div><!-- Rekvizitai -->
+      <div>
+       <h4 class="font-normal text-white mb-4">Rekvizitai</h4>
+       <ul class="space-y-2 text-sm">
+        <li><span class="text-gray-500">Įmonės kodas:</span> <span class="text-gray-300">135614151</span></li>
+        <li><span class="text-gray-500">PVM kodas:</span> <span class="text-gray-300">LT356141515</span></li>
+        <li><span class="text-gray-500">Adresas:</span> <span class="text-gray-300">Jonavos g. 204A, 44132 Kaunas</span></li>
+        <li><span class="text-gray-500">Paysera sąskaita:</span> <span class="text-gray-300">LT. 3683</span></li>
+       </ul>
+      </div>
+     </div>
+     <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-gray-500 text-sm">© 2026 <a href="#" class="text-gray-500 hover:text-gray-300 transition">UAB „Nidulus appraisal"</a></p>
+      <div class="flex gap-6">
+       <a href="#" class="text-gray-500 hover:text-gray-300 transition text-sm">Privatumo politika</a> <a href="#" class="text-gray-500 hover:text-gray-300 transition text-sm">Naudojimo sąlygos</a>
+      </div>
+     </div>
+    </div>
+   </footer>
+  </div>
+  <script>
+    // Initialize Element SDK
+    const defaultConfig = {
+      company_name: 'Navitas Group',
+      services_title: 'Teikiamos paslaugos',
+      contact_title: 'Kilo klausimų?'
+    };
+
+    let config = { ...defaultConfig };
+
+    window.elementSdk.init({
+      defaultConfig,
+      onConfigChange: async (newConfig) => {
+        config = newConfig;
+        document.getElementById('company-name').textContent = config.company_name || defaultConfig.company_name;
+        document.getElementById('services-title').textContent = config.services_title || defaultConfig.services_title;
+        document.getElementById('contact-title').textContent = config.contact_title || defaultConfig.contact_title;
+      },
+      mapToCapabilities: () => ({
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      }),
+      mapToEditPanelValues: () => new Map([
+        ['company_name', config.company_name || defaultConfig.company_name],
+        ['services_title', config.services_title || defaultConfig.services_title],
+        ['contact_title', config.contact_title || defaultConfig.contact_title]
+      ])
+    });
+
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Accordion toggle function
+    function toggleAccordion(button) {
+      const icon = button.querySelector('.accordion-icon');
+      const content = button.nextElementSibling;
+      
+      icon.classList.toggle('open');
+      content.classList.toggle('open');
+    }
+
+    // Privacy accordion toggle
+    function togglePrivacyAccordion(button) {
+      const content = document.getElementById('privacy-accordion');
+      button.classList.toggle('open');
+      content.classList.toggle('open');
+    }
+
+    // Handle form submission
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      
+      // Check if privacy consent is checked
+      const privacyConsent = document.getElementById('privacy-consent');
+      if (!privacyConsent.checked) {
+        alert('Prašome sutikti su asmens duomenų tvarkymo taisyklėmis.');
+        return;
+      }
+
+      const form = event.target;
+      
+      // Show success message
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Žinutė išsiųsta! ✓';
+      submitBtn.disabled = true;
+      
+      setTimeout(() => {
+        form.reset();
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+      }, 3000);
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dd163cf7587d082',t:'MTc3MzYzOTI3OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+  lucide.createIcons();
+</script>
+</body>
+</html>
