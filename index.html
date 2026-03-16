@@ -318,6 +318,59 @@
     .checkbox-group .accordion-button:hover {
       opacity: 0.7;
     }
+
+    .mobile-menu-button {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      color: #374151;
+    }
+
+    .mobile-menu-button:hover {
+      color: #aa8900;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-button {
+        display: block;
+      }
+
+      header {
+        position: relative;
+      }
+
+      nav {
+        display: none !important;
+        position: absolute;
+        top: 100%;
+        left: 16px;
+        right: 16px;
+        background: white;
+        flex-direction: column;
+        gap: 0;
+        padding: 8px 0;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 50;
+      }
+
+      nav.active {
+        display: flex !important;
+      }
+
+      .nav-link {
+        padding: 12px 0 12px 16px;
+        display: block;
+        border-bottom: 1px solid #f3f4f6;
+      }
+
+      .nav-link:last-child {
+        border-bottom: none;
+      }
+    }
   </style>
   <style>body { box-sizing: border-box; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
@@ -328,7 +381,7 @@
    <header class="hero-gradient border-b border-gray-200">
     <div class="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
      <div class="flex items-center gap-3"><img src="https://navitas.lt/wp-content/uploads/2017/04/LOGO-NIDULUS.png" alt="Navitas Group Logo" loading="lazy" class="h-16 object-contain" onerror="console.error('Logo failed to load:', this.src); this.style.display='none';">
-     </div>
+     </div><button class="mobile-menu-button" onclick="toggleMobileMenu()"><i data-lucide="menu" style="width: 24px; height: 24px;"></i></button>
      <nav class="flex gap-8">
       <a href="#" class="nav-link active">Pradinis</a> <a href="#services" class="nav-link">Paslaugos</a> <a href="#contact" class="nav-link">Kontaktai</a> <a href="#news" class="nav-link">Naujienos</a>
      </nav>
@@ -562,6 +615,20 @@
     // Initialize Lucide icons
     lucide.createIcons();
 
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const nav = document.querySelector('nav');
+      nav.classList.toggle('active');
+      lucide.createIcons();
+    }
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('nav').classList.remove('active');
+      });
+    });
+
     // Accordion toggle function
     function toggleAccordion(button) {
       const icon = button.querySelector('.accordion-icon');
@@ -604,7 +671,7 @@
       }, 3000);
     }
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dd163cf7587d082',t:'MTc3MzYzOTI3OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dd1e6cae4c10273',t:'MTc3MzY0NDY0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 <script src="https://unpkg.com/lucide@latest"></script>
 
 <script>
